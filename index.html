@@ -1,0 +1,143 @@
+<html>
+<head>
+    <script type="text/javascript" src="node_modules/aw-parser/dist/aw-parser.amd.js"></script>
+    <script type="text/javascript" src="dist/aw-liner.amd.js"></script>
+
+    <style>
+
+        * {
+            font-family: "Courier New";
+        }
+
+        .page {
+            border: 1px solid #999;
+            width: 300px;
+            padding: 10px 50px 10px 50px;
+        }
+
+        .page span {
+            display: block;
+        }
+
+        span.character {
+            padding-left: 100px;
+        }
+
+        span.dialogue{
+            padding-left: 50px;
+        }
+
+    </style>
+</head>
+<body>
+
+<textarea id="editor">INT. TEST - DAY
+
+Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test.
+
+HERO 1
+Hello -- Hello? Hello! Hello -- Hello? Hello! Hello -- Hello? Hello!
+
+Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test.
+
+HERO 2
+Hello...
+
+Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test.
+
+</textarea>
+<span>Lines per page :<input id="linePerPage" value="10"/></span>
+
+<p id="results"></p>
+
+<script type="text/javascript">
+
+    function getEditor() {
+        return document.getElementById('editor');
+    }
+
+    function getResults() {
+        return document.getElementById('results');
+    }
+
+    function getLinesPerPageInput() {
+        return document.getElementById('linePerPage');
+    }
+
+    function addPage() {
+        var div = document.createElement('div');
+        div.className = 'page';
+        getResults().appendChild(div);
+
+        return div;
+    }
+
+    function print(lines) {
+        var currentPage, span;
+
+        currentPage = addPage();
+
+        lines.forEach(function(line) {
+
+            if (line.type === 'page_break') {
+                currentPage = addPage();
+            }
+            else {
+                span = document.createElement('span');
+                span.className = line.type;
+                currentPage.appendChild(span);
+
+                span.innerHTML = line.text || '&nbsp;';
+            }
+        });
+    }
+
+    function linesToHTML(lines) {
+        return lines.map(function(line) {
+            return line.type + line.text;
+        }).join('<br />');
+    }
+
+    function parse() {
+        var script, result, lines;
+
+        getResults().innerHTML = '';
+
+        script = getEditor().value;
+        result = awParser.parser.parse(script, {
+            print_actions: true,
+            print_dialogues: true,
+            print_synopsis: true,
+            print_sections: true,
+            print_headers: true,
+            print_notes: true
+        });
+
+        lines = awLiner.line(result.tokens, awParser.helpers, {
+            split_dialogue: true,
+            print: function() {
+                return {
+                    lines_per_page: getLinesPerPageInput().value || 5,
+                    action: {
+                        max: 30
+                    },
+                    dialogue: {
+                        max: 20
+                    }
+                }
+            }
+        });
+
+        print(lines);
+    }
+
+    window.onload = function() {
+        getEditor().onkeyup = parse;
+        getLinesPerPageInput().onkeyup = parse;
+        parse();
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "aw-liner",
+  "version": "0.0.1",
+  "description": "Split aw-parser tokens into lines",
+  "main": "liner.js",
+  "scripts": {
+    "build": "browserify -s 'aw-liner' liner.js -o dist/aw-liner.amd.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ifrost@github.com/afterwriting/aw-liner.git"
+  },
+  "keywords": [
+    "fountain",
+    "liner"
+  ],
+  "author": "Piotr Jamroz <pm.jamroz@gmail.com> (https://about.me/piotr.jamroz)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/afterwriting/aw-liner/issues"
+  },
+  "homepage": "https://github.com/afterwriting/aw-liner#readme",
+  "devDependencies": {
+    "aw-parser": "0.0.1"
+  }
+}
