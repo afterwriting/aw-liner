@@ -2,9 +2,11 @@
   "name": "aw-liner",
   "version": "0.0.1",
   "description": "Split aw-parser tokens into lines",
-  "main": "liner.js",
+  "main": "index.js",
   "scripts": {
-    "build": "browserify -s 'aw-liner' liner.js -o dist/aw-liner.amd.js"
+    "build": "browserify -s 'aw-liner' index.js -o dist/aw-liner.amd.js",
+    "version": "npm run build && git add .",
+    "postversion": "git push && git push --tags && npm publish"
   },
   "repository": {
     "type": "git",
