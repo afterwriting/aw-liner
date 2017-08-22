@@ -1,5 +1,3 @@
-var Liner = require('./liner');
+var App = require('./lib/app');
 
-module.exports = {
-    Liner: Liner
-};
+console.log(App);
