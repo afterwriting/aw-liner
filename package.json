@@ -1,44 +1,44 @@
 {
-    "name": "aw-liner",
-    "version": "0.0.2",
-    "description": "Split aw-parser tokens into lines",
-    "main": "index.js",
-    "scripts": {
-        "build": "webpack",
-        "codecov": "codecov",
-        "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
-        "debug": "mocha --watch --reporter spec --inspect --recursive",
-        "doc": "jsdoc -c jsdoc.conf.json -R README.md -P package.json -t node_modules/docdash -u docs/tutorials",
-        "eslint": "eslint --format=table index.js liner.js",
-        "postversion": "git push && git push --tags",
-        "preversion": "git fetch --tags && node scripts/changelog.js https://github.com/afterwriting/aw-liner console",
-        "test": "mocha --recursive",
-        "version": "npm run build && git add ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://ifrost@github.com/afterwriting/aw-liner.git"
-    },
-    "keywords": [
-        "fountain",
-        "liner"
-    ],
-    "author": "Piotr Jamroz <pm.jamroz@gmail.com> (https://about.me/piotr.jamroz)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/afterwriting/aw-liner/issues"
-    },
-    "homepage": "https://github.com/afterwriting/aw-liner#readme",
-    "devDependencies": {
-        "aw-parser": "0.0.5",
-        "chai": "^4.0.2",
-        "codecov": "^2.2.0",
-        "docdash": "^0.4.0",
-        "eslint": "^4.0.0",
-        "istanbul": "^0.4.5",
-        "jsdoc": "^3.4.3",
-        "mocha": "^3.4.2",
-        "sinon": "^3.0.0",
-        "webpack": "^3.0.0"
-    }
+  "name": "aw-liner",
+  "version": "0.0.3",
+  "description": "Split aw-parser tokens into lines",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "codecov": "codecov",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "debug": "mocha --watch --reporter spec --inspect --recursive",
+    "doc": "jsdoc -c jsdoc.conf.json -R README.md -P package.json -t node_modules/docdash -u docs/tutorials",
+    "eslint": "eslint --format=table index.js liner.js",
+    "postversion": "git push && git push --tags",
+    "preversion": "git fetch --tags && node scripts/changelog.js https://github.com/afterwriting/aw-liner console",
+    "test": "mocha --recursive",
+    "version": "npm run build && git add ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ifrost@github.com/afterwriting/aw-liner.git"
+  },
+  "keywords": [
+    "fountain",
+    "liner"
+  ],
+  "author": "Piotr Jamroz <pm.jamroz@gmail.com> (https://about.me/piotr.jamroz)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/afterwriting/aw-liner/issues"
+  },
+  "homepage": "https://github.com/afterwriting/aw-liner#readme",
+  "devDependencies": {
+    "aw-parser": "0.0.5",
+    "chai": "^4.0.2",
+    "codecov": "^2.2.0",
+    "docdash": "^0.4.0",
+    "eslint": "^4.0.0",
+    "istanbul": "^0.4.5",
+    "jsdoc": "^3.4.3",
+    "mocha": "^3.4.2",
+    "sinon": "^3.0.0",
+    "webpack": "^3.0.0"
+  }
 }
