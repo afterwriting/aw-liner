@@ -1,4 +1,4 @@
-var Liner = require('./liner');
+var Liner = require("./liner");
 
 module.exports = {
     Liner: Liner

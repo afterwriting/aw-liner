@@ -2,7 +2,7 @@ function Liner(h) {
 
     var module = {};
 
-    var _state = 'normal'; // 'dialogue'
+    var _state = "normal"; // 'dialogue'
 
     var split_text = function(text, max, index, token) {
         if (text.length <= max) {
@@ -50,12 +50,12 @@ function Liner(h) {
 
         if (token_on_break.is("scene_heading") && token_after && !token_after.is("scene_heading")) {
             return false;
-        } else if (token_after && token_after.is('transition') && !token_on_break.is('transition')) {
+        } else if (token_after && token_after.is("transition") && !token_on_break.is("transition")) {
             return false;
         }
         // action block 1,2 or 3 lines.
         // don't break unless it's the last line
-        else if (token_on_break.is('action') &&
+        else if (token_on_break.is("action") &&
             token_on_break.token.lines.length < 4 &&
             token_on_break.token.lines.indexOf(token_on_break) !== token_on_break.token.lines.length - 1) {
             return false;
@@ -68,7 +68,7 @@ function Liner(h) {
         // aaaaaaaaa <--- allow breaking after this line
         // aaaaaaaaa <--- don't break after this line
         // aaaaaaaaa <--- allow breaking after this line
-        else if (token_on_break.is('action') &&
+        else if (token_on_break.is("action") &&
             token_on_break.token.lines.length >= 4 &&
             (token_on_break.token.lines.indexOf(token_on_break) === 0 ||
             token_on_break.token.lines.indexOf(token_on_break) === token_on_break.token.lines.length - 2)) {
@@ -85,7 +85,7 @@ function Liner(h) {
                 token: token_on_break.token
             }), new_page_character = h.create_line({
                 type: "character",
-                text: lines[character].text.trim() + " " + (lines[character].text.indexOf(CONTD) !== -1 ? '' : CONTD),
+                text: lines[character].text.trim() + " " + (lines[character].text.indexOf(CONTD) !== -1 ? "" : CONTD),
                 start: token_after.start,
                 end: token_after.end,
                 token: token_on_break.token
@@ -104,7 +104,7 @@ function Liner(h) {
                     ]),
                     right_lines_for_next_page = [h.create_line({
                         type: "character",
-                        text: right_lines_on_this_page[0].text.trim() + " " + (right_lines_on_this_page[0].text.indexOf(CONTD) !== -1 ? '' : CONTD),
+                        text: right_lines_on_this_page[0].text.trim() + " " + (right_lines_on_this_page[0].text.indexOf(CONTD) !== -1 ? "" : CONTD),
                         start: token_after.start,
                         end: token_after.end,
                         token: token_on_break.token
@@ -133,7 +133,7 @@ function Liner(h) {
         var p, internal_break = 0;
 
         for (var i = 0; i < lines.length && i < max; i++) {
-            if (lines[i].type === 'page_break') {
+            if (lines[i].type === "page_break") {
                 internal_break = i;
             }
         }
@@ -160,13 +160,13 @@ function Liner(h) {
             next_page_line = null,
             scene_split = false;
         while (next_page_line_index < lines.length && next_page_line === null) {
-            if (lines[next_page_line_index].type !== 'separator' && lines[next_page_line_index].type !== 'page_break') {
+            if (lines[next_page_line_index].type !== "separator" && lines[next_page_line_index].type !== "page_break") {
                 next_page_line = lines[next_page_line_index];
             }
             next_page_line_index++;
         }
 
-        if (next_page_line && next_page_line.type !== 'scene_heading') {
+        if (next_page_line && next_page_line.type !== "scene_heading") {
             scene_split = true;
         }
 
@@ -184,8 +184,8 @@ function Liner(h) {
         var get_first_unfolded_dual_left = function() {
             for (var i = 0; i < lines.length; i++) {
                 if (lines[i].token &&
-                    lines[i].token.type === 'character' &&
-                    lines[i].token.dual === 'left' &&
+                    lines[i].token.type === "character" &&
+                    lines[i].token.dual === "left" &&
                     lines[i].right_column === undefined) {
                     return i;
                 }
@@ -195,8 +195,8 @@ function Liner(h) {
         var get_first_unfolded_dual_right_index_from = function(index) {
             for (var i = index; i < lines.length; i++) {
                 if (lines[i].token &&
-                    lines[i].token.type === 'character' &&
-                    lines[i].token.dual === 'right') {
+                    lines[i].token.type === "character" &&
+                    lines[i].token.dual === "right") {
                     return i;
                 }
             }
@@ -234,7 +234,7 @@ function Liner(h) {
         var lines = [],
             global_index = 0;
 
-        _state = 'normal';
+        _state = "normal";
 
         tokens.forEach(function(token) {
             var max = (cfg.print[token.type] || {}).max || cfg.print.action.max;
@@ -245,7 +245,7 @@ function Liner(h) {
 
             split_token(token, max);
 
-            if (token.is('scene_heading') && lines.length) {
+            if (token.is("scene_heading") && lines.length) {
                 token.lines[0].number = token.number;
             }
 
