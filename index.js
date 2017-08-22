@@ -1,3 +1,5 @@
-var App = require("./lib/app");
+var Liner = require('./liner');
 
-console.log(App);
+module.exports = {
+    Liner: Liner
+};

@@ -1,5 +1,179 @@
 <html>
+<head>
+    <script type="text/javascript" src="node_modules/aw-parser/dist/aw-parser.amd.js"></script>
+    <script type="text/javascript" src="dist/aw-liner.amd.js"></script>
+
+    <style>
+
+        * {
+            font-family: "Courier New";
+            font-size: 10px;
+        }
+
+        .page {
+            border: 1px solid #999;
+            padding: 10px 50px 10px 50px;
+        }
+
+        .page span {
+            display: block;
+        }
+
+        span.character {
+            padding-left: 100px;
+        }
+
+        span.dialogue{
+            padding-left: 50px;
+        }
+
+        .config__editor {
+            margin-top: 10px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .results {
+            margin-top: 27px;
+            width: 70%;
+            height: 100%;
+        }
+
+        .config {
+            width: 30%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: row;
+        }
+
+    </style>
+</head>
 <body>
-<script src="dist/aw-liner.js"></script>
+
+<div class="main">
+
+    <div class="config">
+
+        <span class="config__lines">Lines per page :<input class="config__lines-per-page" type="number" value="10"/></span>
+
+<textarea class="config__editor">INT. TEST - DAY
+
+Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test.
+
+HERO 1
+Hello -- Hello? Hello! Hello -- Hello? Hello! Hello -- Hello? Hello!
+
+Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test.
+
+HERO 2
+Hello...
+
+Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test. Action test.
+
+</textarea>
+
+    </div>
+
+    <p class="results"></p>
+</div>
+
+<script type="text/javascript">
+
+    function getEditor() {
+        return document.querySelector('.config__editor');
+    }
+
+    function getResults() {
+        return document.querySelector('.results');
+    }
+
+    function getLinesPerPageInput() {
+        return document.querySelector('.config__lines-per-page');
+    }
+
+    function addPage() {
+        var div = document.createElement('div');
+        div.className = 'page';
+        getResults().appendChild(div);
+
+        return div;
+    }
+
+    function print(lines) {
+        var currentPage, span;
+
+        currentPage = addPage();
+
+        lines.forEach(function(line) {
+
+            if (line.type === 'page_break') {
+                currentPage = addPage();
+            }
+            else {
+                span = document.createElement('span');
+                span.className = line.type;
+                currentPage.appendChild(span);
+
+                span.innerHTML = line.text || '&nbsp;';
+            }
+        });
+    }
+
+    function linesToHTML(lines) {
+        return lines.map(function(line) {
+            return line.type + line.text;
+        }).join('<br />');
+    }
+
+    function parse() {
+        var script, result, lines;
+
+        getResults().innerHTML = '';
+
+        script = getEditor().value;
+        result = awParser.parser.parse(script, {
+            print_headers: true,
+            print_actions: true,
+            print_dialogues: true,
+            print_notes: true,
+            print_sections: true,
+            print_synopsis: true,
+            each_scene_on_new_page: true,
+            double_space_between_scenes: true,
+            use_dual_dialogue: true,
+            merge_multiple_empty_lines: true
+        });
+
+        var liner = new awLiner.Liner(awParser.helpers);
+
+        lines = liner.line(result.tokens, {
+            print: {
+                lines_per_page: getLinesPerPageInput().value || 5,
+                action: {
+                    max: 30
+                },
+                dialogue: {
+                    max: 20
+                }
+            },
+            split_dialogue: true
+        });
+
+        print(lines);
+    }
+
+    window.onload = function() {
+        getEditor().onkeyup = parse;
+        getLinesPerPageInput().onchange = parse;
+        parse();
+    }
+
+</script>
+
 </body>
 </html>

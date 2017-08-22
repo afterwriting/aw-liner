@@ -7,7 +7,7 @@ module.exports = {
     output: {
         filename: 'aw-liner.amd.js',
         libraryTarget: "umd",
-        library: 'aw-liner',
+        library: 'awLiner',
         path: path.resolve(__dirname, 'dist')
     }
 };
