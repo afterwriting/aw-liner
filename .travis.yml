@@ -8,7 +8,7 @@ script:
   - npm run coverage
   - npm run codecov
 before_install:
-  - git checkout -f ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+  - git fetch && git checkout -f ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
 deploy:
   - provider: script
     skip_cleanup: true
