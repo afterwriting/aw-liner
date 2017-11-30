@@ -7,7 +7,7 @@
 		exports["awLiner"] = factory();
 	else
 		root["awLiner"] = factory();
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
