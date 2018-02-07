@@ -1,6 +1,6 @@
 {
   "name": "aw-liner",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Split aw-parser tokens into lines",
   "main": "index.js",
   "scripts": {
